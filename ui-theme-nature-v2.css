@@ -510,3 +510,63 @@ body[data-ui-theme="ocean"] :is(
   .radar-hero-actions .primary,.watched-actions .primary,.tmdb-search-row button
 ){color:#3d2608!important}
 
+
+/* Pair legacy dark surfaces with the daylight text palette. Opaque content
+   surfaces keep contrast stable even with a dark custom wallpaper. The scope
+   and !important also cover feature styles injected after this stylesheet. */
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  .lib-card,.library-pagination,.batch-bar,.radar-result-card,.radar-side-item,
+  .radar-result-badge,
+  .radar-score-box,.radar-page-stat,.movie-card,.recent,.related-card,
+  .plan-toolbar,.plan-page-stat,.watched-hero,.watched-stat,.watched-toolbar,
+  .watched-feed,.watched-side-card,.stats-summary-card,.stats-insight,
+  .batch-tmdb-inline,.batch-tmdb-progress-box,.batch-tmdb-item,.tmdb-candidate,
+  dialog.movie-modal,#libraryPlanDialog,#libraryDeleteDialog
+){
+  background:rgb(var(--panel-rgb))!important;
+  border-color:var(--line)!important;
+  color:var(--daylight-heading)!important;
+}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) #libraryGrid :is(
+  .library-score-box,.fav-star,.library-delete-btn,.library-status-display
+){
+  background:rgb(var(--panel-rgb))!important;
+  border-color:var(--line)!important;
+  color:var(--daylight-muted)!important;
+}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  .lib-title,.radar-result-title,.library-plan-movie,.library-delete-copy b
+){color:var(--daylight-heading)!important}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  #libraryGrid .library-score-box span,.radar-side-item,.library-plan-head small,
+  .library-plan-body label,.library-plan-note,.library-delete-copy
+){color:var(--daylight-muted)!important}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  #libraryGrid .library-score-box.public b,#libraryGrid .library-status-display.want,
+  #libraryGrid .library-status-display.watching,.media-type-pill.tv
+){color:var(--daylight-accent)!important}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  #libraryGrid .library-score-box.mine b,#libraryGrid .fav-star.on,.media-type-pill.movie
+){color:var(--daylight-gold)!important}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) #libraryGrid .library-status-display.watched{
+  color:var(--daylight-success)!important;
+}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  #libraryGrid .library-delete-btn,.library-delete-head small,.library-delete-actions .danger
+){color:var(--daylight-danger)!important}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  .radar-filter-row input,.radar-filter-row select,.radar-import-text,
+  .profile-field input,.modal-field textarea,.library-plan-date,
+  .library-plan-actions button,.library-delete-actions button
+){
+  background:rgb(var(--panel-rgb))!important;
+  border-color:var(--line)!important;
+  color:var(--daylight-heading)!important;
+  color-scheme:light;
+}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  .library-page-controls button.active,.radar-tab.active,#libraryGrid .fav-star.on
+){
+  border-color:var(--daylight-accent)!important;
+  box-shadow:inset 0 0 0 1px var(--daylight-accent);
+}
