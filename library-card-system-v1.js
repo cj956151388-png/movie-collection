@@ -233,11 +233,6 @@
     return `${movie?.mediaType === 'tv' ? 'tv' : 'movie'}:${id}`;
   }
 
-  function radarScore(movie) {
-    const value = Number(movie?.radar?.publicReputation);
-    return Number.isFinite(value) && value > 0 ? value : null;
-  }
-
   function freshCacheRow(movie) {
     const key = scoreKey(movie);
     if (!key) return null;
@@ -246,12 +241,7 @@
   }
 
   function cachedScore(movie) {
-    const direct = radarScore(movie);
-    if (direct != null) return direct;
-    const row = freshCacheRow(movie);
-    if (!row || row.score == null) return null;
-    const value = Number(row.score);
-    return Number.isFinite(value) && value > 0 ? value : null;
+    return window.CineverseDomain.publicScore(movie, scoreCache());
   }
 
   function writeCachedScore(key, score) {
@@ -427,11 +417,26 @@
     });
   }
 
+  function decorateRecentScores() {
+    const { movieMap } = currentStateMovieMap();
+    document.querySelectorAll('#recentGrid .recent[data-open-detail]').forEach(card => {
+      const movie = movieMap.get(String(card.dataset.openDetail));
+      const node = card.querySelector('.recent-public strong');
+      if (!movie || !node) return;
+      const key = scoreKey(movie);
+      const score = cachedScore(movie);
+      node.textContent = scoreText(score);
+      if (key) node.dataset.tmdbScoreKey = key;
+      if (key && score == null && !freshCacheRow(movie)) fetchPublicScore(movie);
+    });
+  }
+
   function scheduleDecorate() {
     if (decorateFrame) return;
     decorateFrame = requestAnimationFrame(() => {
       decorateFrame = 0;
       decorateLibraryCards();
+      decorateRecentScores();
     });
   }
 
@@ -649,6 +654,9 @@
   // decorating inside cards therefore cannot retrigger this observer and cannot self-loop.
   const gridObserver = new MutationObserver(scheduleDecorate);
   gridObserver.observe(grid, { childList:true, subtree:false });
+
+  const recentGrid = document.getElementById('recentGrid');
+  if (recentGrid) gridObserver.observe(recentGrid, { childList:true, subtree:false });
 
   injectStyles();
   ensurePlanDialog();

@@ -84,3 +84,7 @@ assert.match(appMain, /window\.CineverseStateGateway=stateGateway/);
 assert.match(appMain, /stateGateway\.subscribe\(/);
 
 console.log('State Gateway tests passed.');
+
+const ratingRoundTrip = State.normalizeState({ movies:[{id:'rating-source',info:{title:'Public rating',tmdbVoteAverage:8.3}}], settings:{themePreset:'snow'} });
+assert.equal(ratingRoundTrip.movies[0].info.tmdbVoteAverage,8.3);
+assert.equal(ratingRoundTrip.settings.themePreset,'snow');

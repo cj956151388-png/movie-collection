@@ -570,3 +570,27 @@ body[data-ui-theme="ocean"] :is(
   border-color:var(--daylight-accent)!important;
   box-shadow:inset 0 0 0 1px var(--daylight-accent);
 }
+
+/* Late feature styles also need daylight typography on home and the calendar. */
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  #homeView .recent-time strong,#planView .plan-rich-title,#planView .plan-ring strong
+){color:var(--daylight-heading)!important}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  #homeView .recent-metric span,#homeView .recent-creator,
+  #planView .plan-rich-director,#planView .plan-rich-runtime,#planView .plan-ring span
+){color:var(--daylight-muted)!important}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) #homeView .recent-public strong{
+  color:var(--daylight-accent)!important;
+}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) :is(
+  #planView .plan-rich-card,
+  #planView .plan-list-row input,#planView .plan-list-row select,#planView .plan-list-row select option
+){background:rgb(var(--panel-rgb))!important;color:var(--daylight-heading)!important;color-scheme:light}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) #planView .completed .plan-rich-title{
+  color:var(--daylight-success)!important;
+}
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) #planView .deferred .plan-rich-title{
+  color:var(--daylight-gold)!important;
+}
+
+:is(body[data-ui-theme="snow"],body[data-ui-theme="ocean"]) #planView .plan-ring::before{background:rgb(var(--panel-rgb))!important}

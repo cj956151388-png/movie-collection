@@ -41,6 +41,7 @@
         genres:Array.isArray(movie.info.genres) ? movie.info.genres : splitList(movie.info.genres),
         posterUrl:movie.info.posterUrl || '', overview:movie.info.overview || '',
         tmdbId:movie.info.tmdbId || movie.tmdbId || null,
+        tmdbVoteAverage:movie.info.tmdbVoteAverage ?? null,
         doubanId:movie.info.doubanId || movie.doubanId || null
       },
       personal:{
