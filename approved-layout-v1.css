@@ -465,3 +465,76 @@
   #settingsView .wallpaper-preview-v2 { height: 220px; }
   #settingsView .douban-guide-visual { height: 92px; }
 }
+
+/* Size cards from the actual module width, not the browser width. */
+#homeView .home-triple .radar-grid {
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));
+  min-height:0;
+  grid-auto-rows:max-content;
+  align-content:start;
+}
+#homeView .home-triple .movie-actions {
+  display:flex;
+  flex-wrap:wrap;
+}
+#homeView .home-triple .movie-actions button {
+  flex:1 1 90px;
+  white-space:normal;
+  height:auto;
+  min-height:32px;
+  padding:7px;
+  line-height:1.4;
+}
+body #libraryGrid:not(.list-view) .lib-card { height:auto!important; }
+#libraryGrid:not(.list-view) { grid-auto-rows:max-content; }
+#libraryGrid:not(.list-view) .lib-body { container:library-body / inline-size; }
+#libraryGrid .lib-actions button {
+  white-space:normal!important;
+  overflow-wrap:anywhere;
+  height:auto!important;
+  min-height:32px;
+  padding:6px!important;
+  line-height:1.4;
+}
+@container library-body (max-width:300px) {
+  #libraryGrid:not(.list-view) .lib-actions { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+/* Keep a conventional seven-column calendar with equal-height date cells.
+   Scroll the calendar viewport and dense day lists, never stretch a week. */
+#planView .plan-calendar {
+  grid-auto-rows:140px;
+  flex:0 1 auto;
+  min-height:0;
+  max-height:65vh;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+}
+#planView .plan-day {
+  min-height:0!important;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+#planView .plan-day-number { flex:0 0 auto; }
+#planView .plan-day-movies {
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  align-content:start;
+  grid-auto-rows:max-content;
+}
+#planView .plan-day-chip { flex-shrink:0; }
+#planView .plan-calendar-panel { height:auto; min-height:0; }
+#planView .plan-layout { overflow:auto; align-items:start; }
+#planView .plan-side { height:auto; }
+#planView .plan-calendar-panel.hidden { display:none; }
+
+@media (min-width:821px) and (min-height:650px) {
+  #planView .plan-layout { overflow:hidden; align-items:stretch; }
+  #planView .plan-calendar-panel { height:100%; }
+  #planView .plan-calendar { flex:1 1 auto; max-height:none; }
+  #planView .plan-panel-head,#planView .calendar-week { flex:0 0 auto; }
+  #planView .plan-side,#planView .plan-list-panel { height:100%; overflow:auto; min-height:0; }
+}
+
+#planView .plan-day-chip.plan-rich-card { min-height:54px!important; }

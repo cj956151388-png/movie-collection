@@ -13,6 +13,22 @@
     });
   };
 
+  // One public-rating source for library and home, including the TMDb cache.
+  const publicScore = (movie, cache = {}, now = Date.now()) => {
+    const valid = value => {
+      const number = Number(value);
+      return Number.isFinite(number) && number > 0 && number <= 10 ? number : null;
+    };
+    for (const value of [movie?.radar?.publicReputation, movie?.info?.tmdbVoteAverage]) {
+      const score = valid(value);
+      if (score != null) return score;
+    }
+    const id = Number(movie?.info?.tmdbId);
+    if (!Number.isFinite(id) || id <= 0) return null;
+    const row = cache[`${movie?.mediaType === 'tv' ? 'tv' : 'movie'}:${id}`];
+    return row && Number(row.expiresAt) >= now ? valid(row.score) : null;
+  };
+
   const hasPlan = (movie, month) => (movie?.plans || []).some(plan => !month || plan.month === month);
   const getPlan = (movie, month) => (movie?.plans || []).find(plan => plan.month === month);
   const planEntries = (state, month) => moviesOf(state).flatMap(movie =>
@@ -67,7 +83,7 @@
   };
 
   window.CineverseDomain = Object.freeze({
-    moviesOf, uniq, uniqBy, hasPlan, getPlan, planEntries, watchEntries,
+    publicScore, moviesOf, uniq, uniqBy, hasPlan, getPlan, planEntries, watchEntries,
     mediaTypeLabel, mediaTypeIcon, displayStatus, isSeasonSourceWatch, posterHue, metrics
   });
 })();
